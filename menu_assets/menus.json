@@ -1,0 +1,21 @@
+{"frames": {
+
+"title.png":
+{
+	"frame": {"x":0,"y":0,"w":160,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
+	"sourceSize": {"w":160,"h":160},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "menus.png",
+	"format": "RGBA8888",
+	"size": {"w":160,"h":160},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:6f66c6e5fef12dd51a1781dc2dc8b812:7d3247ba81a71fb83d9c67c72222a03d:ba97089b2b5ed5b997b0872b1d53c1dd$"
+}
+}

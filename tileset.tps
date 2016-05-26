@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.2.1</string>
         <key>fileName</key>
-        <string>C:/xampp/htdocs/cs413/cs413/project_3/tile_assets/tileset.tps</string>
+        <string>C:/xampp/htdocs/cs413/cs413/project_3/tileset.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -141,7 +141,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename></filename>
+                <filename>tile_assets/tileset.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -188,7 +188,9 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../menu_assets/title.png</key>
+            <key type="filename">tile_assets/lava.png</key>
+            <key type="filename">tile_assets/pit.png</key>
+            <key type="filename">tile_assets/stone.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -196,7 +198,9 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>../menu_assets/title.png</filename>
+            <filename>tile_assets/pit.png</filename>
+            <filename>tile_assets/stone.png</filename>
+            <filename>tile_assets/lava.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

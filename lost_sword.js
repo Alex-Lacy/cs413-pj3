@@ -1,14 +1,173 @@
 // Basic game setup to display in HTML
+
+var game_width = 160;
+var game_height = 160;
+var game_scale = 1;
+
+
 var gameport = document.getElementById("gameport");
-var renderer = PIXI.autoDetectRenderer(800, 800);
+var renderer = new PIXI.autoDetectRenderer(game_width, game_height);
 gameport.appendChild(renderer.view);
 
 
 var stage = new PIXI.Container();
+stage.scale.x = game_scale;
+stage.scale.y = game_scale;
+
+var player_view = new PIXI.Container();
+stage.addChild(player_view);
+player_view.scale.x = game_scale;
+player_view.scale.y = game_scale;
 
 
-var player;
+
+var menus = new PIXI.Container()
+stage.addChild(menus);
+
+
+menus.visible = true;
+menus.interactive =true;
+
+player_view.visible = false;
+player_view.interactive = false;
+
+
+var player = {};
 var wrold;
+
+
+var move_left = 1;
+var move_right = 2;
+var move_up = 3;
+var move_down = 4;
+var move_none = 0;
+
+var speed = 32;
+var tween_speed = 200;
+
+function move() {
+
+	if (player.direction == move_none) {
+
+		player.moving = false;
+		console.log(player.y);
+		return;
+	}
+
+
+
+	player.moving = true;
+	console.log("move");
+
+
+	if (player.direction == move_left) {
+		createjs.Tween.get(player).to({x: player.x - speed}, tween_speed).call(move);
+	  }
+
+	if (player.direction == move_right){
+		createjs.Tween.get(player).to({x: player.x + speed}, tween_speed).call(move);
+	}
+
+	if (player.direction == move_up){
+		createjs.Tween.get(player).to({y: player.y - speed}, tween_speed).call(move);
+	}
+
+	if (player.direction == move_down){
+		createjs.Tween.get(player).to({y: player.y + speed}, tween_speed).call(move);
+	}
+}
+
+var previous_direction = 0;
+
+window.addEventListener('keydown', function(e){
+	e.preventDefault();
+	if (!player) return;
+
+	if (player.moving){ return;
+		/*
+		// Catches if the player wants to switch directions
+		if (e.repeat == true) return;
+		previous_direction = player.direction;
+		player.direction = move_none
+
+		if (e.keyCode == 87)
+			player.direction = move_up;
+
+		else if (e.keyCode == 83)
+		    player.direction = move_down;
+		else if (e.keyCode == 65)
+			player.direction = move_left;
+		else if (e.keyCode == 68)
+			player.direction = move_right;
+		if (e.repeat == true) return;*/
+	};
+
+	//if (!(player.moving)) {
+		
+		
+
+		if (e.repeat == true) return;
+		previous_direction = 0;
+
+		player.direction = move_none;
+
+
+		if (e.keyCode == 87)
+			player.direction = move_up;
+
+		else if (e.keyCode == 83)
+		    player.direction = move_down;
+		else if (e.keyCode == 65)
+			player.direction = move_left;
+		else if (e.keyCode == 68)
+			player.direction = move_right;
+
+	//};
+
+	console.log(e.keyCode);
+	move();
+	});
+
+var directions_list = [move_up, move_down, move_left, move_right];
+var keycode_list = [87, 83, 65, 68];
+
+window.addEventListener('keyup', function onKeyUp (e) {
+	e.preventDefault();
+
+
+	if (!player) return;
+	
+	player.direction = move_none;
+	/*
+	if(previous_direction == 0){
+		player.direction = move_none;
+	}
+
+	else{
+		
+		player.direction = previous_direction;
+		previous_direction = 0;
+		move()
+	} */
+
+	/*
+	for(var i = 0; i < directions_list.length; i ++){
+
+		if(e.keyCode == keycode_list[i]){
+			if(player.direction == directions_list[i]) player.direction = move_none;
+			else player.direction = directions_list[i];
+			
+		}
+	
+
+	}*/
+
+
+     
+
+});
+
+PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
 
 PIXI.loader
 	.add('map_json', './tile_assets/map.json')
@@ -16,13 +175,28 @@ PIXI.loader
 	.add('./object_assets/entities.json')
 	.load(load_game);
 
+PIXI.loader
+	.add('./menu_assets/menus.json')
+	.load(load_menus);
+
+
+function load_menus(){
+
+	var title = new PIXI.Sprite(PIXI.Texture.fromFrame('title.png'));
+	menus.addChild(title);
+	title.interactive = true;
+	title.on('mousedown', changeView.bind(null,player_view));
+}
+
+
+
 
 
 function load_game(){
 
 	var tu = new TileUtilities(PIXI);
 	world = tu.makeTiledWorld('map_json', './tile_assets/tileset.png');
-	stage.addChild(world);
+	player_view.addChild(world);
 
 	var hero = world.getObject("hero")
 
@@ -38,7 +212,7 @@ function load_game(){
 	var entity_layer = world.getObject("entities");
 	entity_layer.addChild(player);
 
-	player.direction = false;
+	player.direction = move_none;
 	player.moving = false;
 	animate();
 
@@ -53,11 +227,39 @@ function load_game(){
 
 
 // Generic animate function that draws the whole thing
-function animate(){
+function animate(timestamp){
 	requestAnimationFrame(animate);
+	update_camera();
 	renderer.render(stage);
 
 
 }
 
-animate();
+function update_camera(){
+
+	player_view.x = -player.x * game_scale + game_width / 2 - player.width / 2 * game_scale;
+	player_view.y = -player.y * game_scale + game_height / 2 + player.height / 2 * game_scale;
+
+	player_view.x = -Math.max(0, Math.min(world.worldWidth*game_scale - game_width, -player_view.x));
+	player_view.y = -Math.max(0, Math.min(world.worldHeight*game_scale - game_height, -player_view.y));
+
+
+}
+
+
+
+// Changes the current displaying container
+function changeView(view){
+
+	//blip.play();
+
+	for(var i=0; i<stage.children.length; i++){
+		stage.children[i].visible = false;
+		stage.children[i].interactive = false;
+	}
+
+	view.visible = true;
+	view.interactive = true;
+
+	
+}
