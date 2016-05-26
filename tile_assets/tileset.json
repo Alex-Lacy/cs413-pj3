@@ -1,0 +1,39 @@
+{"frames": {
+
+"lava.png":
+{
+	"frame": {"x":0,"y":0,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"pit.png":
+{
+	"frame": {"x":32,"y":0,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"stone.png":
+{
+	"frame": {"x":64,"y":0,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "tileset.png",
+	"format": "RGBA8888",
+	"size": {"w":96,"h":32},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:d0440a81183e6fb75361b2bcbdde3d8b:c6a3f09737bc0733ae80c18aff0772ea:ace0e5e82375743ccde85e973fd84fb5$"
+}
+}

@@ -1,0 +1,21 @@
+{"frames": {
+
+"hero.png":
+{
+	"frame": {"x":0,"y":0,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "entities.png",
+	"format": "RGBA8888",
+	"size": {"w":32,"h":32},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:450a1d1aae25e67a47393853c60c0f0b:286bec5e2dc06f9654ee0adec254d572:d80676a5e85c5032e708efda4f84d8e3$"
+}
+}
