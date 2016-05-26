@@ -37,6 +37,12 @@ var wrold;
 var lava_layer;
 var tu;
 
+var sword_hilt;
+var sword_guard;
+var sword_blade;
+
+var monster_1 = {};
+
 var move_left = 1;
 var move_right = 2;
 var move_up = 3;
@@ -70,6 +76,7 @@ function move() {
 	console.log(hitLava1);
 	if(hitLava1.hit || hitLava2.hit || hitLava3.hit){
 		player.direction = move_none;
+		death(player);
 		move();
 		return;
 	}
@@ -92,6 +99,11 @@ function move() {
 	}
 }
 
+
+function death(sprite){
+
+	createjs.Tween.get(sprite.scale).to({x: 0, y: 0}, 2000);
+}
 
 var to_overwrite = [65, 83, 87, 68];
 
@@ -224,6 +236,43 @@ function load_game(){
 	player_view.addChild(world);
 
 	var hero = world.getObject("hero")
+	var hilt = world.getObject("hilt");
+	var guard = world.getObject("guard");
+	var blade = world.getObject("blade");
+
+	sword_hilt = new PIXI.Sprite(PIXI.Texture.fromFrame('sword_hilt.png'));
+	sword_guard = new PIXI.Sprite(PIXI.Texture.fromFrame('sword_guard.png'));
+	sword_blade = new PIXI.Sprite(PIXI.Texture.fromFrame('sword_blade.png'));
+
+	sword_hilt.x = hilt.x;
+	sword_hilt.y = hilt.y;
+	sword_hilt.anchor.x = 0.0;
+	sword_hilt.anchor.y = 1.0;
+
+	sword_guard.x = guard.x;
+	sword_guard.y = guard.y;
+	sword_guard.anchor.x = 0.0;
+	sword_guard.anchor.y = 1.0;
+
+	sword_blade.x = blade.x;
+	sword_blade.y = blade.y;
+	sword_blade.anchor.x = 0.0;
+	sword_blade.anchor.y = 1.0;
+
+
+
+	var monster1 = world.getObject("monster1");
+	var monster2 = world.getObject("monster2");
+	var monster3 = world.getObject("monster3");
+
+	monster_1 = new PIXI.Sprite(PIXI.Texture.fromFrame('monster.png'));
+
+
+	monster_1.x = monster1.x;
+	monster_1.y = monster1.y;
+	monster_1.anchor.x = 0.5;
+	monster_1.anchor.y = 1.0;
+
 
 	player = new PIXI.Sprite(PIXI.Texture.fromFrame('hero.png'));
 
@@ -237,6 +286,12 @@ function load_game(){
 
 	var entity_layer = world.getObject("entities");
 	entity_layer.addChild(player);
+	entity_layer.addChild(sword_hilt);
+	entity_layer.addChild(sword_guard);
+	entity_layer.addChild(sword_blade);
+	entity_layer.addChild(monster_1);
+	
+
 
 
 	

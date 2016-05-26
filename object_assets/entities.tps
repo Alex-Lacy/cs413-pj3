@@ -189,6 +189,10 @@
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
             <key type="filename">hero.png</key>
+            <key type="filename">monster.png</key>
+            <key type="filename">sword_blade.png</key>
+            <key type="filename">sword_guard.png</key>
+            <key type="filename">sword_hilt.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -197,6 +201,10 @@
         <key>fileList</key>
         <array>
             <filename>hero.png</filename>
+            <filename>sword_blade.png</filename>
+            <filename>sword_guard.png</filename>
+            <filename>sword_hilt.png</filename>
+            <filename>monster.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
