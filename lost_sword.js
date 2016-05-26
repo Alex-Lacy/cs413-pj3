@@ -34,7 +34,8 @@ player_view.interactive = false;
 
 var player = {};
 var wrold;
-
+var lava_layer;
+var tu;
 
 var move_left = 1;
 var move_right = 2;
@@ -60,27 +61,46 @@ function move() {
 	console.log("move");
 
 
-	if (player.direction == move_left) {
-		createjs.Tween.get(player).to({x: player.x - speed}, tween_speed).call(move);
-	  }
+	//var hitLava0 = tu.hitTestTile(player, lava_layer, 0, world, 'every');
+	var hitLava1 = tu.hitTestTile(player, lava_layer, 1, world, 'every');
+	var hitLava2 = tu.hitTestTile(player, lava_layer, 2, world, 'every');
+	var hitLava3 = tu.hitTestTile(player, lava_layer, 3, world, 'every');
 
-	if (player.direction == move_right){
+
+	console.log(hitLava1);
+	if(hitLava1.hit || hitLava2.hit || hitLava3.hit){
+		player.direction = move_none;
+		move();
+		return;
+	}
+
+
+	if (player.direction == move_left){
+		createjs.Tween.get(player).to({x: player.x - speed}, tween_speed).call(move);
+	}
+
+	else if (player.direction == move_right){
 		createjs.Tween.get(player).to({x: player.x + speed}, tween_speed).call(move);
 	}
 
-	if (player.direction == move_up){
+	else if (player.direction == move_up){
 		createjs.Tween.get(player).to({y: player.y - speed}, tween_speed).call(move);
 	}
 
-	if (player.direction == move_down){
+	else if (player.direction == move_down){
 		createjs.Tween.get(player).to({y: player.y + speed}, tween_speed).call(move);
 	}
 }
 
+
+var to_overwrite = [65, 83, 87, 68];
+
 var previous_direction = 0;
 
 window.addEventListener('keydown', function(e){
-	e.preventDefault();
+
+	if(to_overwrite.indexOf(e.keyCode) === -1) return true;
+
 	if (!player) return;
 
 	if (player.moving){ return;
@@ -131,13 +151,18 @@ window.addEventListener('keydown', function(e){
 var directions_list = [move_up, move_down, move_left, move_right];
 var keycode_list = [87, 83, 65, 68];
 
+
 window.addEventListener('keyup', function onKeyUp (e) {
-	e.preventDefault();
+
+	console.log(e.keyCode, to_overwrite.indexOf(e.keyCode));
+	if(to_overwrite.indexOf(e.keyCode) === -1) return true;
+
 
 
 	if (!player) return;
 	
 	player.direction = move_none;
+
 	/*
 	if(previous_direction == 0){
 		player.direction = move_none;
@@ -194,7 +219,7 @@ function load_menus(){
 
 function load_game(){
 
-	var tu = new TileUtilities(PIXI);
+	tu = new TileUtilities(PIXI);
 	world = tu.makeTiledWorld('map_json', './tile_assets/tileset.png');
 	player_view.addChild(world);
 
@@ -208,9 +233,13 @@ function load_game(){
 	player.anchor.y = 1.0;
 
 
+	lava_layer = world.getObject('lava_layer').data;
 
 	var entity_layer = world.getObject("entities");
 	entity_layer.addChild(player);
+
+
+	
 
 	player.direction = move_none;
 	player.moving = false;
