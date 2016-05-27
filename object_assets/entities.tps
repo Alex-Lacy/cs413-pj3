@@ -188,8 +188,10 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">hero.png</key>
-            <key type="filename">monster.png</key>
+            <key type="filename">../../../../../../Users/alex4/Documents/Expression/Expression Design/hero_back.png</key>
+            <key type="filename">../../../../../../Users/alex4/Documents/Expression/Expression Design/hero_forewards.png</key>
+            <key type="filename">../../../../../../Users/alex4/Documents/Expression/Expression Design/hero_left.png</key>
+            <key type="filename">../../../../../../Users/alex4/Documents/Expression/Expression Design/hero_right.png</key>
             <key type="filename">sword_blade.png</key>
             <key type="filename">sword_guard.png</key>
             <key type="filename">sword_hilt.png</key>
@@ -200,11 +202,13 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>hero.png</filename>
             <filename>sword_blade.png</filename>
             <filename>sword_guard.png</filename>
             <filename>sword_hilt.png</filename>
-            <filename>monster.png</filename>
+            <filename>../../../../../../Users/alex4/Documents/Expression/Expression Design/hero_left.png</filename>
+            <filename>../../../../../../Users/alex4/Documents/Expression/Expression Design/hero_right.png</filename>
+            <filename>../../../../../../Users/alex4/Documents/Expression/Expression Design/hero_back.png</filename>
+            <filename>../../../../../../Users/alex4/Documents/Expression/Expression Design/hero_forewards.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

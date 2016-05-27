@@ -21,13 +21,17 @@ player_view.scale.y = game_scale;
 
 
 
-var menus = new PIXI.Container()
+var menus = new PIXI.Container();
 stage.addChild(menus);
 
+var lose_sc = new PIXI.Container();
+stage.addChild(lose_sc);
 
 menus.visible = true;
 menus.interactive =true;
 
+lose_sc.visible = false;
+lose_sc.interactive = false;
 player_view.visible = false;
 player_view.interactive = false;
 
@@ -41,6 +45,7 @@ var tu;
 var sword_hilt;
 var sword_guard;
 var sword_blade;
+var lose = {};
 
 var monster_1 = {};
 
@@ -55,6 +60,7 @@ var move_none = 0;
 var speed = 32;
 var tween_speed = 200;
 
+var dead_sound;
 
 
 
@@ -80,6 +86,8 @@ function move() {
 
 
 /*
+	Scrapped collision detection:
+
 	//var hitLava0 = tu.hitTestTile(player, lava_layer, 0, world, 'every');
 	var hitLava = tu.hitTestTile(player, lava_layer, 1, world, 'every');
 	
@@ -162,6 +170,7 @@ function collision(x, y){
 
 
 		// Lava boxes
+		// Some of them are mis-placed :(
 		if(
 		// right hand side
 		//Box one
@@ -199,6 +208,8 @@ function collision(x, y){
 		//l 10
 		x < 128 && x > 0 && y < 416 && y > 352 ||
 		//l 11
+		x < 128 && x > 32 && y < 320 && y > 224 ||
+		// 12
 		x < 128 && x > 32 && y < 320 && y > 224
 
 
@@ -213,12 +224,20 @@ function collision(x, y){
 function murder(sprite){
 
 	createjs.Tween.get(sprite.scale).to({x: 0, y: 0}, 2000);
-	 Object.freeze(sprite);
+	Object.freeze(sprite);
+	dead_sound.play();
+	window.setTimeout(toLosing, 1000);
+}
+
+function toLosing(){
+
+	lose_sc.interactive = true;
+	lose_sc.visible = true;
 }
 
 var to_overwrite = [65, 83, 87, 68];
 
-var previous_direction = 0;
+//var previous_direction = 0;
 
 
 function swordFound(sprite, sword_sprite){
@@ -238,6 +257,7 @@ window.addEventListener('keydown', function(e){
 	if (player.moving){ return;
 		/*
 		// Catches if the player wants to switch directions
+
 		if (e.repeat == true) return;
 		previous_direction = player.direction;
 		player.direction = move_none
@@ -295,7 +315,11 @@ window.addEventListener('keyup', function onKeyUp (e) {
 	
 	player.direction = move_none;
 
-	/*
+	/* An attempt at a movement improvement,
+		would have allowed the player to move using two
+		imput keys (i.e. hitting w then a to switch to a's direction)
+
+
 	if(previous_direction == 0){
 		player.direction = move_none;
 	}
@@ -326,6 +350,8 @@ window.addEventListener('keyup', function onKeyUp (e) {
 
 PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
 
+PIXI.loader.add('dead.wav').load(load_sound);
+
 PIXI.loader
 	.add('map_json', './tile_assets/map.json')
 	.add('map_png', './tile_assets/tileset.png')
@@ -337,14 +363,30 @@ PIXI.loader
 	.load(load_menus);
 
 
+function load_sound(){
+
+	dead_sound = PIXI.audioManager.getAudio('dead.wav');
+}
 function load_menus(){
 
 	var title = new PIXI.Sprite(PIXI.Texture.fromFrame('title.png'));
 	menus.addChild(title);
 	title.interactive = true;
 	title.on('mousedown', changeView.bind(null,player_view));
+
+
+	lose = new PIXI.Sprite(PIXI.Texture.fromFrame('lose_screen.png'));
+	lose_sc.addChild(lose);
+	lose.interactive = true;
+	lose.visible = true;
+	lose.on('mousedown', refresh);
+
 }
 
+
+function refresh(){
+	location.reload();
+}
 
 
 
@@ -380,21 +422,23 @@ function load_game(){
 	sword_blade.anchor.y = 1.0;
 
 
-
+/*
 	var monster1 = world.getObject("monster1");
 	var monster2 = world.getObject("monster2");
 	var monster3 = world.getObject("monster3");
 
-	monster_1 = new PIXI.Sprite(PIXI.Texture.fromFrame('monster.png'));
+
+	//monster_1 = new PIXI.Sprite(PIXI.Texture.fromFrame('monster.png'));
 
 
 	monster_1.x = monster1.x;
 	monster_1.y = monster1.y;
-	monster_1.anchor.x = 0.5;
-	monster_1.anchor.y = 1.0;
+	//monster_1.anchor.x = 0.5;
+	//monster_1.anchor.y = 1.0;
+*/
 
 
-	player = new PIXI.Sprite(PIXI.Texture.fromFrame('hero.png'));
+	player = new PIXI.Sprite(PIXI.Texture.fromFrame('hero_back.png'));
 
 	player.x = hero.x;
 	player.y = hero.y;
@@ -402,17 +446,16 @@ function load_game(){
 	player.anchor.y = 1.0;
 
 
-	lava_layer = world.getObject('lava_layer').data;
-
+	//lava_layer = world.getObject('lava_layer').data;
 	entity_layer = world.getObject("entities");
 	
 	entity_layer.addChild(player);
 	entity_layer.addChild(sword_hilt);
 	entity_layer.addChild(sword_guard);
 	entity_layer.addChild(sword_blade);
-	entity_layer.addChild(monster_1);
+	//entity_layer.addChild(monster_1);
 
-	entity_layerGID = entity_layer.data;
+	//entity_layerGID = entity_layer.data;
 	
 
 

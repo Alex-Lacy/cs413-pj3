@@ -188,6 +188,7 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">lose_screen.png</key>
             <key type="filename">title.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -197,6 +198,7 @@
         <key>fileList</key>
         <array>
             <filename>title.png</filename>
+            <filename>lose_screen.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

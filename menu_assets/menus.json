@@ -1,8 +1,17 @@
 {"frames": {
 
-"title.png":
+"lose_screen.png":
 {
 	"frame": {"x":0,"y":0,"w":160,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
+	"sourceSize": {"w":160,"h":160},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"title.png":
+{
+	"frame": {"x":160,"y":0,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -14,8 +23,8 @@
 	"version": "1.0",
 	"image": "menus.png",
 	"format": "RGBA8888",
-	"size": {"w":160,"h":160},
+	"size": {"w":320,"h":160},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:6f66c6e5fef12dd51a1781dc2dc8b812:7d3247ba81a71fb83d9c67c72222a03d:ba97089b2b5ed5b997b0872b1d53c1dd$"
+	"smartupdate": "$TexturePacker:SmartUpdate:010c92b00f8eee94bd381d4bb832f5d8:3f5c2880f41b672894b1e5aca1825bc9:ba97089b2b5ed5b997b0872b1d53c1dd$"
 }
 }
